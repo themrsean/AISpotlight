@@ -1,13 +1,12 @@
 """Tk graphical interface for the THR-04 summary."""
 
-import json
 import sys
 
 import pandas as pd
 
-from .analysis import DataError, analyse, load
+from .analysis import DataError, analyse, flagged_rows, load
 from .plot import build_figure
-from .report import format_report
+from .report import format_report, to_json
 
 
 def run_gui(initial_path=None):
@@ -111,10 +110,10 @@ def run_gui(initial_path=None):
                 width=110 if "flag" in col else 80,
                 anchor="w" if "flag" in col or col == "phase" else "e",
             )
-        for row in df.itertuples(index=False):
+        flagged = flagged_rows(df)
+        for row, is_flagged in zip(df.itertuples(index=False), flagged, strict=True):
             values = ["" if pd.isna(v) else v for v in row]
-            flagged = any(str(getattr(row, f)) != "ok" for f in ("ambient_flag", "sample_flag"))
-            tree.insert("", "end", values=values, tags=("flagged",) if flagged else ())
+            tree.insert("", "end", values=values, tags=("flagged",) if is_flagged else ())
 
     def load_file(path):
         try:
@@ -155,8 +154,13 @@ def run_gui(initial_path=None):
             initialfile="THR04_summary.json",
         )
         if path:
-            with open(path, "w", encoding="utf-8") as fh:
-                json.dump(state["results"], fh, indent=2, default=float)
+            try:
+                with open(path, "w", encoding="utf-8") as fh:
+                    fh.write(to_json(state["results"]))
+            except OSError as err:
+                messagebox.showerror("Could not save results", str(err))
+                status_var.set("Export failed")
+                return
             status_var.set(f"Saved {path}")
 
     def on_save_plot():
@@ -167,13 +171,20 @@ def run_gui(initial_path=None):
             initialfile="THR04_plot.png",
         )
         if path:
-            fig.savefig(path, dpi=150)
+            try:
+                fig.savefig(path, dpi=150)
+            except (OSError, ValueError) as err:  # ValueError: unsupported file type
+                messagebox.showerror("Could not save plot", str(err))
+                status_var.set("Save failed")
+                return
             status_var.set(f"Saved {path}")
 
     open_btn.configure(command=on_open)
     export_btn.configure(command=on_export)
     save_plot_btn.configure(command=on_save_plot)
     root.bind("<Control-o>", lambda e: on_open())
+    if sys.platform == "darwin":
+        root.bind("<Command-o>", lambda e: on_open())
 
     if initial_path:
         root.after(100, lambda: load_file(initial_path))
