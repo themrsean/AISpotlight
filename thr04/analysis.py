@@ -7,8 +7,10 @@ so the results can be formatted as text, dumped as JSON, or plotted.
 import numpy as np
 import pandas as pd
 
+from .anomalies import detect as detect_anomalies
+
 REQUIRED_COLUMNS = {"time_s", "phase", "ambient_C", "sample_C", "ambient_flag", "sample_flag"}
-SECTIONS = ("overview", "quality", "ambient", "heating", "cooling")
+SECTIONS = ("overview", "quality", "ambient", "heating", "cooling", "anomalies")
 PHASES = {"heating", "cooling"}
 
 
@@ -207,4 +209,5 @@ ANALYSES = {
     "ambient": ambient,
     "heating": heating,
     "cooling": cooling,
+    "anomalies": detect_anomalies,
 }

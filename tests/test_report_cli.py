@@ -152,3 +152,85 @@ def test_flagged_rows_treats_nan_as_ok():  # B8
 
     df = make_df([0, 10, 20], "heating", 22.0, [1.0, 2.0, 3.0], sample_flag=["ok", None, "spike"])
     assert list(flagged_rows(df)) == [False, False, True]
+
+
+# ---------------------------------------------------------------- anomalies section (issue #3)
+def _warning(message="Ambient temperature drifted +0.80 °C", threshold=0.5):
+    return {
+        "check": "ambient",
+        "severity": "warning",
+        "affects": ["ambient", "cooling"],
+        "start_s": None,
+        "end_s": None,
+        "message": message,
+        "hint": "Check the room temperature.",
+        "measured": 0.8,
+        "threshold": threshold,
+    }
+
+
+def _anomalies(findings):
+    return {
+        "summary": {
+            "critical": sum(f["severity"] == "critical" for f in findings),
+            "warning": sum(f["severity"] == "warning" for f in findings),
+        },
+        "thresholds": {"ambient_max_range_C": 1.0, "ambient_max_drift_C": 0.5},
+        "config_file": None,
+        "findings": findings,
+    }
+
+
+def test_report_without_anomalies_says_none_detected(clean_csv):
+    lines = format_report("f.csv", analyse(load(str(clean_csv)))).splitlines()
+    assert lines[4] == " No anomalies detected"  # directly under the header block
+    assert "ANOMALIES" in lines
+    assert lines[lines.index("ANOMALIES") + 1] == "  None detected"
+
+
+def test_report_summary_line_and_section_with_findings():
+    text = format_report("f.csv", {"anomalies": _anomalies([_warning()])})
+    lines = text.splitlines()
+    assert lines[4] == " ⚠ 0 critical, 1 warning — see ANOMALIES"
+    section = text.split("\nANOMALIES\n", 1)[1]
+    assert "[warning] ambient — whole run" in section
+    assert "Ambient temperature drifted +0.80 °C" in section
+    assert "Check: Check the room temperature." in section
+    assert "Affects: ambient, cooling" in section
+
+
+def test_report_summary_pluralises():
+    text = format_report("f.csv", {"anomalies": _anomalies([_warning(), _warning()])})
+    assert " ⚠ 0 critical, 2 warnings — see ANOMALIES" in text
+
+
+def test_report_shows_time_range_for_timed_findings():
+    f = _warning() | {"start_s": 1250.0, "end_s": 1290.0}
+    text = format_report("f.csv", {"anomalies": _anomalies([f])})
+    assert "[warning] ambient — 00:20:50 to 00:21:30" in text
+
+
+def test_report_without_anomalies_section_has_no_summary_line():
+    text = format_report("f.csv", {"heating": {"error": "x"}})
+    assert "anomal" not in text.lower()
+
+
+def test_cli_anomalies_section_only(clean_csv, capsys):
+    summarize_thr04.main([str(clean_csv), "-s", "anomalies"])
+    out = capsys.readouterr().out
+    assert "No anomalies detected" in out
+    assert "ANOMALIES" in out
+    assert "RUN OVERVIEW" not in out and "COOLING PHASE" not in out
+
+
+def test_cli_json_includes_anomalies(clean_csv, capsys):
+    summarize_thr04.main([str(clean_csv), "--json"])
+    out = strict_json(capsys.readouterr().out)
+    assert list(out) == ["overview", "quality", "ambient", "heating", "cooling", "anomalies"]
+    a = out["anomalies"]
+    assert a == {
+        "summary": {"critical": 0, "warning": 0},
+        "thresholds": {"ambient_max_range_C": 1.0, "ambient_max_drift_C": 0.5},
+        "config_file": None,
+        "findings": [],
+    }

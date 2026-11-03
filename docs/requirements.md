@@ -100,8 +100,8 @@ Version 1 has seven checks on a single run:
 
 | Condition | Severity | Affects |
 |---|---|---|
-| Ambient range > `ambient_max_range_C` | warning | ambient, cooling |
-| Absolute ambient drift (last valid minus first valid) > `ambient_max_drift_C` | warning | ambient, cooling |
+| Ambient range > `ambient_max_range_C`. Range = max − min of the valid ambient readings after a centred 5-reading rolling median (D20). | warning | ambient, cooling |
+| Absolute ambient drift > `ambient_max_drift_C`. Drift = mean of the valid ambient readings in the last 60 s minus the mean of those in the first 60 s (D20). | warning | ambient, cooling |
 | Pearson correlation between ambient and sample > `ambient_max_correlation` (the ambient sensor is probably being heated by the sample) | critical | cooling |
 
 **FR-8 — C7 Phase labels.** Report a `critical` finding, with `affects` = overview, heating, cooling, for any of these:
@@ -271,3 +271,4 @@ The synthetic runs below use linear heating, exponential cooling with heater off
 | D17 | Approved for implementation: FR-1, FR-7 rows 1–2, FR-9–12, FR-14–16 | Approval status |
 | D18 | C6 range/drift findings cover the whole run (`null` times); AC-1's location check doesn't apply to whole-run findings | FR-9, AC-1 |
 | D19 | The CON-6 prerequisite (fix B1–B8, land refactor and tooling) is tracked as a separate issue and done first | CON-6 |
+| D20 | C6 range and drift use noise-robust definitions (5-reading rolling median; 60 s averages at each end). The single-reading definitions fired on 79% of 0.5× range injections and 1.6% of clean runs at THR04's noise level (SD ≈ 0.15 °C). The AMBIENT section keeps its existing endpoint values (CON-2), so the two can differ slightly. | FR-7 |

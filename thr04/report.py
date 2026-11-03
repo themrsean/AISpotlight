@@ -6,6 +6,8 @@ from typing import Any
 
 import numpy as np
 
+from .analysis import fmt_time
+
 NA = "n/a"
 
 
@@ -45,6 +47,8 @@ def format_report(path: str, results: dict) -> str:
     out(" THR-04 thermal response summary")
     out(f" {path}")
     out(line)
+    if "anomalies" in results:
+        out(f" {_anomaly_summary(results['anomalies'])}")
 
     if "overview" in results:
         o = results["overview"]
@@ -105,5 +109,33 @@ def format_report(path: str, results: dict) -> str:
             out(f"  Half-life of excess {_fmt(c['half_life_min'], '.2f')} min")
             out(f"  Fit R²              {_fmt(c['fit_r2'], '.4f')}")
             out(f"  Remaining excess    {_fmt(c['final_excess_C'], '.2f')} °C above ambient")
+    if "anomalies" in results:
+        out("\nANOMALIES")
+        findings = results["anomalies"]["findings"]
+        if not findings:
+            out("  None detected")
+        for f in findings:
+            out(f"  [{f['severity']}] {f['check']} — {_time_range(f)}")
+            out(f"      {f['message']}")
+            out(f"      Check: {f['hint']}")
+            out(f"      Affects: {', '.join(f['affects'])}")
     out("")
     return "\n".join(lines)
+
+
+def _plural(n: int, word: str) -> str:
+    return f"{n} {word}" if n == 1 else f"{n} {word}s"
+
+
+def _anomaly_summary(anomalies: dict) -> str:
+    """FR-16 one-line summary shown under the report header."""
+    critical, warning = anomalies["summary"]["critical"], anomalies["summary"]["warning"]
+    if critical == 0 and warning == 0:
+        return "No anomalies detected"
+    return f"⚠ {critical} critical, {_plural(warning, 'warning')} — see ANOMALIES"
+
+
+def _time_range(finding: dict) -> str:
+    if finding["start_s"] is None:
+        return "whole run"
+    return f"{fmt_time(finding['start_s'])} to {fmt_time(finding['end_s'])}"

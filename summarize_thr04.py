@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Summarise a cleaned THR-04 thermal response CSV (output of clean_thr04.py).
+Summarise a cleaned THR-04 thermal response CSV (the cleaning script is not part of this repo).
 
 Reports
   * run overview: duration, sampling interval, heater-off time
@@ -9,10 +9,13 @@ Reports
   * heating phase: start / peak temperature, average and initial heating rate
   * cooling phase: Newton's-law-of-cooling fit, T - T_amb = dT0 * exp(-k t),
     giving the cooling constant k, time constant tau, half-life and R^2
+  * anomalies: suspicious data or behaviour, with what to check
+    (see docs/requirements.md)
 
 Usage
   python summarize_thr04.py THR04_clean.csv
   python summarize_thr04.py THR04_clean.csv --section cooling
+  python summarize_thr04.py THR04_clean.csv --section anomalies
   python summarize_thr04.py THR04_clean.csv --json > summary.json
   python summarize_thr04.py --gui                     # graphical interface
   python summarize_thr04.py THR04_clean.csv --gui     # open a file in the GUI
