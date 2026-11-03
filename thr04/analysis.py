@@ -9,6 +9,7 @@ import pandas as pd
 
 REQUIRED_COLUMNS = {"time_s", "phase", "ambient_C", "sample_C", "ambient_flag", "sample_flag"}
 SECTIONS = ("overview", "quality", "ambient", "heating", "cooling")
+PHASES = {"heating", "cooling"}
 
 
 # ---------------------------------------------------------------- loading
@@ -17,6 +18,10 @@ class DataError(Exception):
 
 
 def load(path: str) -> pd.DataFrame:
+    """Read and validate a cleaned THR-04 CSV, returning rows sorted by time.
+
+    Raises DataError if the file can't be read or isn't a valid cleaned run.
+    """
     try:
         df = pd.read_csv(path)
     except FileNotFoundError:
@@ -29,7 +34,34 @@ def load(path: str) -> pd.DataFrame:
         raise DataError(f"{path} is missing columns: {', '.join(sorted(missing))}")
     if df.empty:
         raise DataError(f"{path} contains no data rows")
+    _validate(df, path)
     return df.sort_values("time_s").reset_index(drop=True)
+
+
+def _validate(df: pd.DataFrame, path: str) -> None:
+    """Reject files whose values make the analysis meaningless (B4, B7)."""
+    for col in ("time_s", "ambient_C", "sample_C"):
+        if not pd.api.types.is_numeric_dtype(df[col]):
+            numeric = pd.to_numeric(df[col], errors="coerce")
+            bad = df.loc[numeric.isna() & df[col].notna(), col]
+            raise DataError(f"{path}: column {col} has non-numeric values, e.g. {bad.iloc[0]!r}")
+    if df["time_s"].isna().any():
+        raise DataError(f"{path}: column time_s has empty values")
+    dup = df.loc[df["time_s"].duplicated(), "time_s"]
+    if len(dup):
+        raise DataError(f"{path}: duplicate time_s values, e.g. {dup.iloc[0]:g}")
+    phases = df["phase"]
+    unknown = sorted(set(phases.dropna().astype(str)) - PHASES)
+    if unknown or phases.isna().any():
+        shown = ", ".join(map(repr, unknown)) or "empty values"
+        raise DataError(
+            f"{path}: unknown phase values: {shown} (expected {' or '.join(sorted(PHASES))})"
+        )
+
+
+def flagged_rows(df: pd.DataFrame) -> pd.Series:
+    """True for rows where either sensor carries a cleaning flag (NaN counts as ok, B8)."""
+    return (df["ambient_flag"].fillna("ok") != "ok") | (df["sample_flag"].fillna("ok") != "ok")
 
 
 def analyse(df, sections=SECTIONS):
@@ -82,6 +114,8 @@ def quality(df):
 
 def ambient(df):
     a = df["ambient_C"].dropna()
+    if a.empty:
+        return {"error": "no valid ambient data"}
     return {
         "mean_C": round(a.mean(), 2),
         "std_C": round(a.std(), 2),
@@ -92,6 +126,11 @@ def ambient(df):
 
 
 def heating(df, initial_window_s=60):
+    """Heating-phase temperatures and rates.
+
+    ``peak_C``/``peak_time`` are taken over the whole run, because the block can keep
+    warming briefly after the heater is switched off (B9).
+    """
     h = df[(df["phase"] == "heating") & df["sample_C"].notna()]
     allv = df[df["sample_C"].notna()]
     if len(h) < 2:
@@ -133,8 +172,12 @@ def cooling(df):
 
     # Use the mean ambient over the cooling phase as the reference temperature.
     t_amb = df.loc[df["phase"] == "cooling", "ambient_C"].mean()
+    if pd.isna(t_amb):
+        return {"error": "no ambient data during cooling"}
     c["excess"] = c["sample_C"] - t_amb
     c = c[c["excess"] > 0]
+    if len(c) < 3:  # B1: recheck after dropping readings at or below ambient
+        return {"error": "not enough cooling data above ambient"}
     t = (c["time_s"] - c["time_s"].iloc[0]).values
 
     slope, intercept, r2 = linear_fit(t, np.log(c["excess"].values))
