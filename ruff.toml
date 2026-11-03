@@ -1,0 +1,15 @@
+line-length = 100
+target-version = "py311"
+
+[lint]
+select = [
+    "E", "W",  # pycodestyle
+    "F",       # pyflakes
+    "I",       # import sorting
+    "UP",      # pyupgrade
+    "B",       # bugbear
+    "SIM",     # simplifications
+]
+
+[lint.per-file-ignores]
+"tests/*" = ["E402"]  # conftest adds the repo root to sys.path before imports

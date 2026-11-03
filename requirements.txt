@@ -1,0 +1,7 @@
+numpy>=1.26
+pandas>=2.1
+# Optional: needed only for the GUI plot tab and build_figure()
+matplotlib>=3.8
+# Development
+pytest>=8
+ruff>=0.6
