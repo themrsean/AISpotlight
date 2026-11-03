@@ -1,0 +1,377 @@
+# THR-04 / thermal response experiment / synthetic teaching data
+# A metal block was heated for 10 min and allowed to cool for another 20 min.
+# Two sensors: sample temperature and ambient temperature.
+# Logger export (time | sensor | reading | units)
+# Data may contain invalid readings, mixed units, repeated records, and sensor spikes.
+# This file has NOT been cleaned.
+
+00:00:00|AMBIENT|22.0|degC
+00:00:00|SAMPLE|21.9|degC
+ 00:00:10  | Ambient   |    21.9 | C 
+ 00:00:10  | Sample    |    23.9 | C 
+00:00:20 | ambient | 22.1 | C
+00:00:20 | sample | 25.4 | C
+00:00:30|AMBIENT|22.0|C
+00:00:30|SAMPLE|27.1|C
+ 00:00:40  | AMBIENT   |    22.2 | C 
+ 00:00:40  | SAMPLE    |    28.6 | C 
+00:00:50 | Ambient | 71.78 | F
+00:00:50 | Sample | 30.2 | C
+00:01:00|ambient|22.1|C
+00:01:00|sample|31.7|C
+ 00:01:10  | AMBIENT   |    22.2 | degC 
+ 00:01:10  | SAMPLE    |     N/A | C 
+00:01:20 | AMBIENT | 21.9 | C
+00:01:20 | SAMPLE | 34.7 | C
+00:01:30|Ambient|22.0|C
+00:01:30|Sample|35.8|C
+ 00:01:40  | ambient   |    22.2 | C 
+ 00:01:40  | sample    |    37.6 | C 
+ 00:01:40  | sample    |    37.6 | C 
+00:01:50 | AMBIENT | 22.2 | C
+00:01:50 | SAMPLE | 38.8 | C
+00:02:00|AMBIENT|22.1|C
+00:02:00|SAMPLE|104.36|degF
+ 00:02:10  | Ambient   |    22.1 | C 
+ 00:02:10  | Sample    |    41.3 | C 
+00:02:20 | ambient | 22.1 | degC
+00:02:20 | sample | 42.8 | degC
+00:02:30|AMBIENT|22.2|C
+00:02:30|SAMPLE|43.7|C
+ 00:02:40  | AMBIENT   |    22.1 | C 
+ 00:02:40  | SAMPLE    |    45.0 | C 
+00:02:50 | Ambient | 71.96 | F
+00:02:50 | Sample | 46.4 | C
+00:03:00|ambient|22.2|C
+00:03:00|sample|47.2|C
+ 00:03:10  | AMBIENT   |    22.1 | C 
+ 00:03:10  | SAMPLE    |  119.30 | F 
+00:03:20 | AMBIENT | 22.3 | C
+00:03:20 | SAMPLE | 49.7 | C
+00:03:30|Ambient||C
+00:03:30|Sample|125.0|degC
+ 00:03:40  | ambient   |    22.1 | C 
+ 00:03:40  | sample    |    51.4 | C 
+00:03:50 | AMBIENT | 22.2 | C
+00:03:50 | SAMPLE | 52.6 | C
+00:04:00|AMBIENT|22.3|C
+00:04:00|SAMPLE|53.6|C
+ 00:04:10  | Ambient   |    22.2 | C 
+ 00:04:10  | Sample    |    54.4 | C 
+00:04:20 | ambient | 22.3 | C
+00:04:20 | sample | 55.4 | C
+00:04:30|AMBIENT|22.2|C
+00:04:30|SAMPLE|133.52|F
+ 00:04:40  | AMBIENT   |    22.3 | degC 
+ 00:04:40  | SAMPLE    |    57.4 | degC 
+00:04:50 | Ambient | 22.3 | C
+00:04:50 | Sample | 58.4 | C
+00:05:00|ambient|22.2|C
+00:05:00|sample|59.1|C
+00:05:00|ambient|22.2|C
+ 00:05:10  | AMBIENT   |   71.78 | F 
+ 00:05:10  | SAMPLE    |    59.9 | C 
+00:05:20 | AMBIENT | 22.2 | C
+00:05:20 | SAMPLE | 60.6 | C
+00:05:30|Ambient|22.3|C
+00:05:30|Sample||C
+ 00:05:40  | ambient   |    22.2 | C 
+ 00:05:40  | sample    |    62.3 | C 
+00:05:50 | AMBIENT | 22.2 | degC
+00:05:50 | SAMPLE | 62.9 | degC
+00:06:00|AMBIENT|47.0|C
+00:06:00|SAMPLE|63.5|C
+ 00:06:10  | Ambient   |    22.3 | C 
+ 00:06:10  | Sample    |    64.1 | C 
+00:06:20 | ambient | 22.2 | C
+00:06:20 | sample | 65.1 | C
+00:06:30|AMBIENT|22.2|C
+00:06:30|SAMPLE|65.5|C
+ 00:06:40  | AMBIENT   |    22.2 | C 
+ 00:06:40  | SAMPLE    |    66.3 | C 
+00:06:50 | Ambient | 22.1 | C
+00:06:50 | Sample | 66.9 | C
+00:07:00|ambient|22.2|degC
+00:07:00|sample|67.5|degC
+ 00:07:10  | AMBIENT   |    22.4 | C 
+ 00:07:10  | SAMPLE    |  155.12 | F 
+00:07:20 | AMBIENT | 22.2 | C
+00:07:20 | SAMPLE | 68.5 | C
+00:07:30|Ambient|22.4|C
+00:07:30|Sample|69.1|C
+ 00:07:40  | ambient   |    22.3 | C 
+ 00:07:40  | sample    |    69.9 | C 
+00:07:50 | AMBIENT | 22.1 | C
+00:07:50 | SAMPLE | 70.1 | C
+00:08:00|AMBIENT|22.2|C
+00:08:00|SAMPLE|71.1|C
+ 00:08:10  | Ambient   |    22.2 | degC 
+ 00:08:10  | Sample    |     8.0 | degC 
+00:08:30|AMBIENT|22.3|C
+00:08:30|SAMPLE|72.4|C
+00:08:20 | ambient | 22.3 | C
+00:08:20 | sample | 72.3 | C
+ 00:08:40  | AMBIENT   |    22.3 | C 
+ 00:08:40  | SAMPLE    |    73.1 | C 
+00:08:50 | Ambient | 22.4 | C
+00:08:50 | Sample | 73.3 | C
+00:09:00|ambient|72.32|degF
+00:09:00|sample|73.8|C
+ 00:09:10  | AMBIENT   |    22.1 | C 
+ 00:09:10  | SAMPLE    |    74.1 | C 
+00:09:20 | AMBIENT | 22.1 | degC
+00:09:20 | SAMPLE | 74.8 | degC
+00:09:30|Ambient|22.3|C
+00:09:30|Sample|75.1|C
+ 00:09:40  | ambient   |    22.3 | C 
+ 00:09:40  | sample    |  168.44 | degF 
+00:09:50 | AMBIENT | 22.3 | C
+00:09:50 | SAMPLE | 76.0 | C
+00:10:00|AMBIENT|22.3|C
+# HEATER OFF - passive cooling begins
+00:10:00|SAMPLE|76.3|C
+ 00:10:10  | Ambient   |    22.3 | C 
+ 00:10:10  | Sample    |    75.4 | C 
+00:10:20 | ambient | 22.2 | C
+00:10:20 | sample | 74.3 | C
+00:10:20 | sample | 74.5 | C
+00:10:30|AMBIENT|22.1|degC
+00:10:30|SAMPLE|73.2|degC
+ 00:10:40  | AMBIENT   |    22.2 | C 
+ 00:10:40  | SAMPLE    |    72.2 | C 
+00:10:50 | Ambient | 22.1 | C
+00:10:50 | Sample | 71.2 | C
+00:11:00|ambient|N/A|C
+00:11:00|sample|70.3|C
+ 00:11:10  | AMBIENT   |    21.9 | C 
+ 00:11:10  | SAMPLE    |    69.4 | C 
+00:11:20 | AMBIENT | 22.1 | C
+00:11:20 | SAMPLE | 68.7 | C
+00:11:30|Ambient|22.1|C
+00:11:30|Sample|68.1|C
+ 00:11:40  | ambient   |    22.1 | degC 
+ 00:11:40  | sample    |    66.9 | degC 
+00:11:50 | AMBIENT | 22.1 | C
+00:11:50 | SAMPLE | 150.98 | F
+00:12:00|AMBIENT|22.2|C
+00:12:00|SAMPLE|65.3|C
+ 00:12:10  | Ambient   |    22.0 | C 
+ 00:12:10  | Sample    |    64.4 | C 
+00:12:20 | ambient | 21.9 | C
+00:12:20 | sample | 63.6 | C
+00:12:30|AMBIENT|22.0|C
+00:12:30|SAMPLE|62.9|C
+ 00:12:40  | AMBIENT   |    22.0 | C 
+ 00:12:40  | SAMPLE    |    62.2 | C 
+00:12:50 | Ambient | 71.78 | F
+00:12:50 | Sample | 61.2 | degC
+00:13:00|ambient|21.9|C
+00:13:00|sample|60.3|C
+ 00:13:10  | AMBIENT   |    22.1 | C 
+ 00:13:10  | SAMPLE    |    60.0 | C 
+00:13:20 | AMBIENT | 21.9 | C
+00:13:20 | SAMPLE | 58.9 | C
+00:13:30|Ambient|22.1|C
+00:13:30|Sample|58.2|C
+ 00:13:40  | ambient   |    22.0 | C 
+ 00:13:40  | sample    |    57.5 | C 
+00:13:50 | AMBIENT | 22.0 | C
+00:13:50 | SAMPLE | 57.0 | C
+00:14:00|AMBIENT|22.0|degC
+00:14:00|SAMPLE|56.5|degC
+ 00:14:10  | Ambient   |    21.9 | C 
+ 00:14:10  | Sample    |    55.3 | C 
+ 00:14:10  | Ambient   |    21.6 | C 
+00:14:20 | ambient | 22.0 | C
+00:14:20 | sample | 55.1 | C
+00:14:30|AMBIENT|21.9|C
+00:14:30|SAMPLE|54.1|C
+ 00:14:40  | AMBIENT   |    21.9 | C 
+ 00:14:40  | SAMPLE    |    53.6 | C 
+00:14:50 | Ambient | 21.9 | C
+00:14:50 | Sample | 128.48 | F
+00:15:00|ambient|22.0|C
+
+00:15:00|sample|52.5|C
+ 00:15:10  | AMBIENT   |    21.8 | degC 
+ 00:15:10  | SAMPLE    |    52.0 | degC 
+00:15:20 | AMBIENT | 22.1 | C
+00:15:20 | SAMPLE | MISSING | C
+00:15:30|Ambient|21.8|C
+00:15:30|Sample|50.7|C
+ 00:15:40  | ambient   |    22.0 | C 
+ 00:15:40  | sample    |    50.1 | C 
+00:15:50 | AMBIENT | 71.24 | F
+00:15:50 | SAMPLE | 49.3 | C
+00:16:00|AMBIENT|21.9|C
+00:16:00|SAMPLE|49.5|C
+ 00:16:10  | Ambient   |    21.8 | C 
+ 00:16:10  | Sample    |    48.8 | C 
+00:16:20 | ambient | 21.8 | degC
+00:16:20 | sample | 48.2 | degC
+00:16:30|AMBIENT|21.9|C
+00:16:30|SAMPLE|47.6|C
+ 00:16:40  | AMBIENT   |    21.8 | C 
+ 00:16:40  | SAMPLE    |    46.9 | C 
+00:16:50 | Ambient | 21.8 | C
+00:16:50 | Sample | 46.6 | C
+00:17:00|ambient|21.8|C
+00:17:00|sample|46.0|C
+ 00:17:10  | AMBIENT   |    21.9 | C 
+ 00:17:10  | SAMPLE    |    45.8 | C 
+00:17:20 | AMBIENT | 21.6 | C
+00:17:20 | SAMPLE | 107.0 | C
+00:17:30|Ambient|21.8|degC
+00:17:30|Sample|44.8|degC
+ 00:17:40  | ambient   |    21.8 | C 
+ 00:17:40  | sample    |    44.3 | C 
+00:17:50 | AMBIENT | 21.9 | C
+00:17:50 | SAMPLE | 43.7 | C
+00:18:00|AMBIENT|21.8|C
+00:18:00|SAMPLE|43.2|C
+ 00:18:10  | Ambient   |    21.7 | C 
+ 00:18:10  | Sample    |  109.22 | F 
+00:18:20 | ambient | 21.8 | C
+00:18:20 | sample | 42.5 | C
+00:18:30|AMBIENT|21.6|C
+00:18:30|SAMPLE|42.0|C
+ 00:18:40  | AMBIENT   | MISSING | C 
+ 00:18:40  | SAMPLE    |    41.7 | degC 
+00:18:50 | Ambient | 21.9 | C
+00:18:50 | Sample | 41.4 | C
+00:19:00|ambient|21.8|C
+00:19:00|sample|40.8|C
+ 00:19:10  | AMBIENT   |    21.8 | C 
+ 00:19:10  | SAMPLE    |    40.9 | C 
+00:19:20 | AMBIENT | 21.9 | C
+00:19:20 | SAMPLE | 40.5 | C
+00:19:30|Ambient|21.9|C
+00:19:30|Sample|40.0|C
+ 00:19:40  | ambient   |    21.8 | C 
+ 00:19:40  | sample    |    39.6 | C 
+00:19:50 | AMBIENT | 21.8 | degC
+00:19:50 | SAMPLE | 39.0 | degC
+00:20:00|AMBIENT|22.0|C
+00:20:00|SAMPLE|39.2|C
+ 00:20:10  | Ambient   |    21.8 | C 
+ 00:20:10  | Sample    |    38.9 | C 
+00:20:20 | ambient | 21.9 | C
+00:20:20 | sample | 38.5 | C
+00:20:30|AMBIENT|21.8|C
+00:20:30|SAMPLE|37.9|C
+ 00:20:40  | AMBIENT   |    21.9 | C 
+ 00:20:40  | SAMPLE    |    37.7 | C 
+00:20:50 | Ambient | 4.0 | C
+00:20:50 | Sample | 37.3 | C
+00:20:50 | Sample | 37.3 | C
+00:21:00|ambient|21.9|degC
+00:21:00|sample|37.2|degC
+ 00:21:10  | AMBIENT   |    21.7 | C 
+ 00:21:10  | SAMPLE    |    36.7 | C 
+00:21:30|Ambient|21.8|C
+00:21:30|Sample|36.1|C
+00:21:20 | AMBIENT | 21.8 | C
+00:21:20 | SAMPLE | 97.88 | degF
+ 00:21:40  | ambient   |    21.8 | C 
+ 00:21:40  | sample    |    36.2 | C 
+00:21:50 | AMBIENT | 22.0 | C
+00:21:50 | SAMPLE | 35.9 | C
+00:22:00|AMBIENT|21.9|C
+00:22:00|SAMPLE|35.5|C
+ 00:22:10  | Ambient   |   71.60 | F 
+ 00:22:10  | Sample    |    35.1 | degC 
+00:22:20 | ambient | 21.9 | C
+00:22:20 | sample | 35.0 | C
+00:22:30|AMBIENT|22.1|C
+00:22:30|SAMPLE|34.9|C
+ 00:22:40  | AMBIENT   |    22.0 | C 
+ 00:22:40  | SAMPLE    |    34.4 | C 
+00:22:50 | Ambient | 21.9 | C
+00:22:50 | Sample | 34.4 | C
+00:23:00|ambient|21.8|C
+00:23:00|sample|34.1|C
+ 00:23:10  | AMBIENT   |    22.0 | C 
+ 00:23:10  | SAMPLE    |    33.8 | C 
+00:23:20 | AMBIENT | 21.9 | degC
+00:23:20 | SAMPLE | 33.6 | degC
+00:23:30|Ambient|21.9|C
+00:23:30|Sample|-15.0|C
+ 00:23:40  | ambient   |    22.0 | C 
+ 00:23:40  | sample    |    33.3 | C 
+00:23:50 | AMBIENT | 22.0 | C
+00:23:50 | SAMPLE | 33.0 | C
+00:24:00|AMBIENT|22.0|C
+00:24:00|SAMPLE|32.9|C
+ 00:24:10  | Ambient   |    22.0 | C 
+ 00:24:10  | Sample    |    32.8 | C 
+00:24:20 | ambient | 22.1 | C
+00:24:20 | sample | 32.6 | C
+00:24:30|AMBIENT|22.1|degC
+00:24:30|SAMPLE|32.5|degC
+ 00:24:40  | AMBIENT   |    22.0 | C 
+ 00:24:40  | SAMPLE    |    31.9 | C 
+00:24:50 | Ambient | 22.0 | C
+00:24:50 | Sample | 31.7 | C
+00:25:00|ambient|22.2|C
+00:25:00|sample|N/A|C
+ 00:25:10  | AMBIENT   |    22.2 | C 
+ 00:25:10  | SAMPLE    |    31.8 | C 
+00:25:20 | AMBIENT | 22.2 | C
+00:25:20 | SAMPLE | 31.7 | C
+00:25:30|Ambient|22.2|C
+00:25:30|Sample|31.3|C
+ 00:25:40  | ambient   |    22.2 | degC 
+ 00:25:40  | sample    |    31.0 | degC 
+00:25:50 | AMBIENT | 22.2 | C
+00:25:50 | SAMPLE | 31.0 | C
+00:26:00|AMBIENT|22.2|C
+00:26:00|SAMPLE|30.8|C
+ 00:26:10  | Ambient   |    22.1 | C 
+ 00:26:10  | Sample    |    30.5 | C 
+00:26:20 | ambient | 22.2 | C
+00:26:20 | sample | 30.5 | C
+00:26:30|AMBIENT|22.3|C
+00:26:30|SAMPLE|30.3|C
+ 00:26:40  | AMBIENT   |    22.2 | C 
+ 00:26:40  | SAMPLE    |    29.9 | C 
+00:26:50 | Ambient | 22.2 | degC
+00:26:50 | Sample | 29.7 | degC
+00:27:00|ambient|22.2|C
+00:27:00|sample|30.1|C
+ 00:27:10  | AMBIENT   |   72.14 | F 
+ 00:27:10  | SAMPLE    |    29.9 | C 
+00:27:20 | AMBIENT | 22.3 | C
+00:27:20 | SAMPLE | 29.7 | C
+00:27:30|Ambient|22.2|C
+00:27:30|Sample|29.3|C
+ 00:27:40  | ambient   |    22.4 | C 
+ 00:27:40  | sample    |    29.5 | C 
+00:27:50 | AMBIENT | 22.4 | C
+00:27:50 | SAMPLE | 29.4 | C
+00:28:00|AMBIENT|22.2|degC
+00:28:00|SAMPLE|28.7|degC
+ 00:28:10  | Ambient   |    22.2 | C 
+ 00:28:10  | Sample    |   83.48 | F 
+00:28:20 | ambient | 22.4 | C
+00:28:20 | sample | 28.6 | C
+00:28:30|AMBIENT|22.4|C
+00:28:30|SAMPLE|28.7|C
+ 00:28:40  | AMBIENT   |    22.3 | C 
+ 00:28:40  | SAMPLE    |    28.4 | C 
+00:28:50 | Ambient |  | C
+00:28:50 | Sample | 28.2 | C
+00:28:50 | Sample | 28.6 | C
+00:29:00|ambient|22.3|C
+00:29:00|sample|28.4|C
+ 00:29:10  | AMBIENT   |    22.4 | degC 
+ 00:29:10  | SAMPLE    |    28.3 | degC 
+00:29:20 | AMBIENT | 22.4 | C
+00:29:20 | SAMPLE | 28.1 | C
+00:29:30|Ambient|22.3|C
+00:29:30|Sample|28.1|C
+ 00:29:40  | ambient   |    22.4 | C 
+ 00:29:40  | sample    |    27.9 | C 
+00:29:50 | AMBIENT | 22.4 | C
+00:29:50 | SAMPLE | 27.9 | C
+00:30:00|AMBIENT|22.4|C
+00:30:00|SAMPLE|27.6|C
