@@ -2,9 +2,15 @@
 
 | | |
 |---|---|
-| Status | Draft, awaiting approval. **Not implemented.** |
+| Status | Partly approved (see below). **Not implemented.** |
 | Last updated | 2026-11-03 |
 | Applies to | `summarize_thr04.py` and the `thr04/` package |
+
+### Approval status
+| Requirements | Status |
+|---|---|
+| FR-1, FR-7 rows 1–2 (ambient range and drift), FR-9, FR-10, FR-11, FR-12, FR-14, FR-15, FR-16 | **Approved** for implementation (D17) |
+| Everything else, including FR-7 row 3 (correlation) | Draft |
 
 ## 1. Purpose
 
@@ -209,7 +215,7 @@ The synthetic runs below use linear heating, exponential cooling with heater off
 
 | ID | Criterion | Covers |
 |---|---|---|
-| AC-1 | For each of C1–C4 and C6 (range/drift/correlation): an anomaly injected at 2× its threshold is detected with the correct `check`, `severity` and `affects`, and its `start_s` is within ±1 reading of the injected start. | FR-2–5, FR-7, FR-9 |
+| AC-1 | For each of C1–C4 and C6 (range/drift/correlation): an anomaly injected at 2× its threshold is detected with the correct `check`, `severity` and `affects`, and its `start_s` is within ±1 reading of the injected start. For findings about the whole run (`start_s`/`end_s` = `null`, e.g. C6 range and drift), the location check doesn't apply; instead `measured` must exceed `threshold` by the injected amount (D18). | FR-2–5, FR-7, FR-9 |
 | AC-2 | For each of the same checks, an anomaly injected at 0.5× its threshold produces **no** finding from that check. | FR-2–5, FR-7 |
 | AC-3 | C5: a clearly non-exponential cooling curve (e.g. two time constants) gives an R² critical finding *or* a pattern-in-errors warning; a single point moved by 2× `fit_outlier_multiple` × the spread gives an outlier warning at that reading. | FR-6 |
 | AC-4 | C7: each of the three layout problems in a synthetic file gives one critical finding; the correct layout gives none. | FR-8 |
@@ -240,6 +246,7 @@ The synthetic runs below use linear heating, exponential cooling with heater off
 | OQ-7 | Audience assumed to be students and instructors. Should lab staff or automated grading shape the wording too? | Confirm. | FR-11 |
 | OQ-8 | `clean_thr04.py` doesn't exist. Should a cleaner be written, so the raw → clean step can be reproduced? | Separate future work. | — |
 | OQ-9 | Which warnings does `THR04_clean.csv` produce, and are they acceptable? | Review once the detector is implemented. | AC-8 |
+| OQ-10 | THR04's ambient drift is +0.40 °C, 80% of `ambient_max_drift_C` = 0.5. Is that margin enough for similar real runs? | Keep 0.5 for now; revisit if real runs trigger false drift warnings. | — |
 
 ## 9. Decisions behind these requirements
 
@@ -261,3 +268,6 @@ The synthetic runs below use linear heating, exponential cooling with heater off
 | D14 | Opt-in `--fail-on`, exit code 3 | FR-17 |
 | D15 | Keep the refactor; fix B1–B8 first; split `load()` and C7 responsibilities | CON-6, CON-7 |
 | D16 | No cleaner script exists | CON-9, OQ-8 |
+| D17 | Approved for implementation: FR-1, FR-7 rows 1–2, FR-9–12, FR-14–16 | Approval status |
+| D18 | C6 range/drift findings cover the whole run (`null` times); AC-1's location check doesn't apply to whole-run findings | FR-9, AC-1 |
+| D19 | The CON-6 prerequisite (fix B1–B8, land refactor and tooling) is tracked as a separate issue and done first | CON-6 |
